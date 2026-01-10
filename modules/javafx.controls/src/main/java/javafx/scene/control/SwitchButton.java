@@ -80,7 +80,8 @@ public class SwitchButton extends ButtonBase {
     private void initialize() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
         // Use TOGGLE_BUTTON as the accessible role since AccessibleRole does not currently define a SWITCH role.
-        // TOGGLE_BUTTON provides the same accessibility attributes (TEXT, SELECTED) and actions (FIRE) needed for a switch control.
+        // TOGGLE_BUTTON provides the same accessibility attributes (TEXT, SELECTED) and actions (FIRE)
+        // needed for a switch control.
         setAccessibleRole(AccessibleRole.TOGGLE_BUTTON);
         setAlignment(Pos.CENTER_LEFT);
         setMnemonicParsing(true);

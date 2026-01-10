@@ -174,7 +174,9 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     protected double computeMinWidth(double height, double topInset, double rightInset,
                                      double bottomInset, double leftInset) {
         final double trackWidth = Math.max(track.minWidth(-1), track.prefWidth(-1));
-        final double thumbContainerWidth = Math.max(thumbContainer.minWidth(-1), thumbContainer.prefWidth(-1));
+        final double thumbContainerWidth = Math.max(
+                thumbContainer.minWidth(-1),
+                thumbContainer.prefWidth(-1));
         final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
         return super.computeMinWidth(height, topInset, rightInset, bottomInset, leftInset)
                 + snapSizeX(switchWidth);
@@ -187,10 +189,14 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     protected double computeMinHeight(double width, double topInset, double rightInset,
                                       double bottomInset, double leftInset) {
         final double trackWidth = Math.max(track.minWidth(-1), track.prefWidth(-1));
-        final double thumbContainerWidth = Math.max(thumbContainer.minWidth(-1), thumbContainer.prefWidth(-1));
+        final double thumbContainerWidth = Math.max(
+                thumbContainer.minWidth(-1),
+                thumbContainer.prefWidth(-1));
         final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
         final double trackHeight = Math.max(track.minHeight(-1), track.prefHeight(-1));
-        final double thumbContainerHeight = Math.max(thumbContainer.minHeight(-1), thumbContainer.prefHeight(-1));
+        final double thumbContainerHeight = Math.max(
+                thumbContainer.minHeight(-1),
+                thumbContainer.prefHeight(-1));
         final double switchHeight = Math.max(trackHeight, thumbContainerHeight);
         return Math.max(
                 super.computeMinHeight(width - switchWidth, topInset, rightInset, bottomInset, leftInset),
