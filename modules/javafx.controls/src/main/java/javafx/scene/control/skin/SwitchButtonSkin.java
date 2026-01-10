@@ -258,11 +258,11 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
         final double yOffset = Utils.computeYOffset(h, maxHeight,
                 switchButton.getAlignment().getVpos()) + y;
 
-        layoutLabelInArea(xOffset + switchWidth, yOffset, labelWidth, maxHeight,
-                switchButton.getAlignment());
+        layoutLabelInArea(xOffset, yOffset, labelWidth, maxHeight, switchButton.getAlignment());
+        final double switchX = xOffset + labelWidth;
 
         track.resize(trackWidth, trackHeight);
-        final double trackX = xOffset + (switchWidth - trackWidth) / 2;
+        final double trackX = switchX + (switchWidth - trackWidth) / 2;
         final double trackY = yOffset + (maxHeight - trackHeight) / 2;
         track.setLayoutX(trackX);
         track.setLayoutY(trackY);
@@ -272,7 +272,7 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
             thumbStartX = trackX;
         } else {
             thumbMoveRange = 0;
-            thumbStartX = xOffset + (switchWidth - thumbContainerWidth) / 2;
+            thumbStartX = switchX + (switchWidth - thumbContainerWidth) / 2;
         }
 
         final double thumbContainerY = trackY + (trackHeight - thumbContainerHeight) / 2;
