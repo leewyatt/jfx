@@ -4299,7 +4299,7 @@ to the top and bottom -fx-padding values of the parent toolbar. */
             -fx-body-color;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 1em;
-    -fx-padding: 0.75em 1.5em;
+    -fx-padding: 0.75em 1.5em; /* 9 18 */
 }
 
 .switch-button:focused > .track {
@@ -4380,26 +4380,22 @@ to the top and bottom -fx-padding values of the parent toolbar. */
     -fx-background-radius: 1em;
 }
 
-.switch-button > .thumb-container {
-    -fx-padding: 0.166667em; /* 2 */
-}
-
-.switch-button > .thumb-container > .thumb {
+.switch-button > .thumb {
     -fx-background-color:
             -fx-shadow-highlight-color,
             -fx-outer-border,
             -fx-inner-border,
             -fx-body-color;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-insets: 2 2 1 2, 2, 3, 4;
     -fx-background-radius: 1em;
-    -fx-padding: 0.5em;
+    -fx-padding: 0.666667em; /* 8 */
 }
 
-.switch-button:hover > .thumb-container > .thumb {
+.switch-button:hover > .thumb {
     -fx-color: -fx-hover-base;
 }
 
-.switch-button:armed > .thumb-container > .thumb {
+.switch-button:armed > .thumb {
     -fx-color: -fx-pressed-base;
 }
 

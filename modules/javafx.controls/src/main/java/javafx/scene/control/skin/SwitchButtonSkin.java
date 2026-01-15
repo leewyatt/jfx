@@ -58,12 +58,7 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     private final StackPane track;
 
     /**
-     * The outer container for the thumb, controls spacing via padding.
-     */
-    private final StackPane thumbContainer;
-
-    /**
-     * The inner thumb graphic, displays the circle or custom icon.
+     * The thumb that slides along the track.
      */
     private final StackPane thumb;
 
@@ -112,18 +107,12 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
         track = new StackPane();
         track.getStyleClass().setAll("track");
 
-        thumbContainer = new StackPane();
-        thumbContainer.getStyleClass().setAll("thumb-container");
-
         thumb = new StackPane();
         thumb.getStyleClass().setAll("thumb");
-        thumbContainer.getChildren().add(thumb);
 
         timeline = new Timeline();
 
-        thumbPositionListener = (obs, oldVal, newVal) -> {
-            thumbContainer.setLayoutX(thumbStartX + thumbMoveRange * newVal.doubleValue());
-        };
+        thumbPositionListener = (obs, oldVal, newVal) -> thumb.setLayoutX(thumbStartX + thumbMoveRange * newVal.doubleValue());
         thumbPosition.addListener(thumbPositionListener);
 
         thumbPosition.set(control.isSelected() ? 1.0 : 0.0);
@@ -162,8 +151,8 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     @Override
     protected void updateChildren() {
         super.updateChildren();
-        if (track != null && thumbContainer != null) {
-            getChildren().addAll(track, thumbContainer);
+        if (track != null && thumb != null) {
+            getChildren().addAll(track, thumb);
         }
     }
 
@@ -173,11 +162,7 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     @Override
     protected double computeMinWidth(double height, double topInset, double rightInset,
                                      double bottomInset, double leftInset) {
-        final double trackWidth = Math.max(track.minWidth(-1), track.prefWidth(-1));
-        final double thumbContainerWidth = Math.max(
-                thumbContainer.minWidth(-1),
-                thumbContainer.prefWidth(-1));
-        final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
+        final double switchWidth = computeSwitchWidth();
         return super.computeMinWidth(height, topInset, rightInset, bottomInset, leftInset)
                 + snapSizeX(switchWidth);
     }
@@ -188,16 +173,8 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     @Override
     protected double computeMinHeight(double width, double topInset, double rightInset,
                                       double bottomInset, double leftInset) {
-        final double trackWidth = Math.max(track.minWidth(-1), track.prefWidth(-1));
-        final double thumbContainerWidth = Math.max(
-                thumbContainer.minWidth(-1),
-                thumbContainer.prefWidth(-1));
-        final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
-        final double trackHeight = Math.max(track.minHeight(-1), track.prefHeight(-1));
-        final double thumbContainerHeight = Math.max(
-                thumbContainer.minHeight(-1),
-                thumbContainer.prefHeight(-1));
-        final double switchHeight = Math.max(trackHeight, thumbContainerHeight);
+        final double switchWidth = computeSwitchWidth();
+        final double switchHeight = computeSwitchHeight();
         return Math.max(
                 super.computeMinHeight(width - switchWidth, topInset, rightInset, bottomInset, leftInset),
                 topInset + switchHeight + bottomInset);
@@ -209,9 +186,7 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     @Override
     protected double computePrefWidth(double height, double topInset, double rightInset,
                                       double bottomInset, double leftInset) {
-        final double trackWidth = track.prefWidth(-1);
-        final double thumbContainerWidth = thumbContainer.prefWidth(-1);
-        final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
+        final double switchWidth = computeSwitchWidth();
         return super.computePrefWidth(height, topInset, rightInset, bottomInset, leftInset)
                 + snapSizeX(switchWidth);
     }
@@ -222,12 +197,8 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
     @Override
     protected double computePrefHeight(double width, double topInset, double rightInset,
                                        double bottomInset, double leftInset) {
-        final double trackWidth = track.prefWidth(-1);
-        final double thumbContainerWidth = thumbContainer.prefWidth(-1);
-        final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
-        final double trackHeight = track.prefHeight(-1);
-        final double thumbContainerHeight = thumbContainer.prefHeight(-1);
-        final double switchHeight = Math.max(trackHeight, thumbContainerHeight);
+        final double switchWidth = computeSwitchWidth();
+        final double switchHeight = computeSwitchHeight();
         return Math.max(
                 super.computePrefHeight(width - switchWidth, topInset, rightInset, bottomInset, leftInset),
                 topInset + switchHeight + bottomInset);
@@ -242,11 +213,11 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
 
         final double trackWidth = snapSizeX(track.prefWidth(-1));
         final double trackHeight = snapSizeY(track.prefHeight(-1));
-        final double thumbContainerWidth = snapSizeX(thumbContainer.prefWidth(-1));
-        final double thumbContainerHeight = snapSizeY(thumbContainer.prefHeight(-1));
+        final double thumbWidth = snapSizeX(thumb.prefWidth(-1));
+        final double thumbHeight = snapSizeY(thumb.prefHeight(-1));
 
-        final double switchWidth = Math.max(trackWidth, thumbContainerWidth);
-        final double switchHeight = Math.max(trackHeight, thumbContainerHeight);
+        final double switchWidth = computeSwitchWidth();
+        final double switchHeight = computeSwitchHeight();
 
         final double controlWidth = Math.max(switchButton.prefWidth(-1), switchButton.minWidth(-1));
         final double labelWidth = Math.min(controlWidth - switchWidth, w - snapSizeX(switchWidth));
@@ -267,19 +238,22 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
         track.setLayoutX(trackX);
         track.setLayoutY(trackY);
 
-        if (thumbContainerWidth <= trackWidth) {
-            thumbMoveRange = trackWidth - thumbContainerWidth;
+        // Calculate thumb movement range
+        if (thumbWidth <= trackWidth) {
+            thumbMoveRange = trackWidth - thumbWidth;
             thumbStartX = trackX;
         } else {
+            // Edge case: thumb is wider than track
             thumbMoveRange = 0;
-            thumbStartX = switchX + (switchWidth - thumbContainerWidth) / 2;
+            thumbStartX = switchX + (switchWidth - thumbWidth) / 2;
         }
 
-        final double thumbContainerY = trackY + (trackHeight - thumbContainerHeight) / 2;
+        // Thumb vertical position: centered within track
+        final double thumbY = trackY + (trackHeight - thumbHeight) / 2;
 
-        thumbContainer.resize(thumbContainerWidth, thumbContainerHeight);
-        thumbContainer.setLayoutX(thumbStartX + thumbMoveRange * thumbPosition.get());
-        thumbContainer.setLayoutY(thumbContainerY);
+        thumb.resize(thumbWidth, thumbHeight);
+        thumb.setLayoutX(thumbStartX + thumbMoveRange * thumbPosition.get());
+        thumb.setLayoutY(thumbY);
     }
 
     /* *************************************************************************
@@ -287,6 +261,18 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
      * Private implementation                                                  *
      *                                                                         *
      **************************************************************************/
+
+    private double computeSwitchWidth() {
+        final double trackWidth = Math.max(track.minWidth(-1), track.prefWidth(-1));
+        final double thumbWidth = Math.max(thumb.minWidth(-1), thumb.prefWidth(-1));
+        return Math.max(trackWidth, thumbWidth);
+    }
+
+    private double computeSwitchHeight() {
+        final double trackHeight = Math.max(track.minHeight(-1), track.prefHeight(-1));
+        final double thumbHeight = Math.max(thumb.minHeight(-1), thumb.prefHeight(-1));
+        return Math.max(trackHeight, thumbHeight);
+    }
 
     private void selectedStateChanged() {
         final double targetPosition = getSkinnable().isSelected() ? 1.0 : 0.0;
