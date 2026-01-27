@@ -25,10 +25,22 @@
 
 package javafx.scene.control;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.WritableValue;
+import javafx.css.CssMetaData;
 import javafx.css.PseudoClass;
+import javafx.css.Styleable;
+import javafx.css.StyleableObjectProperty;
+import javafx.css.StyleableProperty;
+import javafx.css.converter.EnumConverter;
 import javafx.event.ActionEvent;
+import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Pos;
 import javafx.scene.AccessibleAttribute;
 import javafx.scene.AccessibleRole;
@@ -46,6 +58,12 @@ import javafx.scene.control.skin.SwitchButtonSkin;
  * <p>Example:
  * <pre><code> SwitchButton sw = new SwitchButton("Enable notifications");
  * sw.setSelected(true);</code></pre>
+ *
+ * <p>The switch position can be configured using {@link #switchPositionProperty()}:
+ * <pre><code> SwitchButton sw = new SwitchButton("Wi-Fi");
+ * sw.setSwitchPosition(HorizontalDirection.LEFT); // switch on left, label on right</code></pre>
+ *
+ * <p>This value can also be set via CSS using {@code -fx-switch-position}.</p>
  *
  * <p>MnemonicParsing is enabled by default for SwitchButton.</p>
  *
@@ -85,7 +103,12 @@ public class SwitchButton extends ButtonBase {
         setAccessibleRole(AccessibleRole.TOGGLE_BUTTON);
         setAlignment(Pos.CENTER_LEFT);
         setMnemonicParsing(true);
+
+        // initialize pseudo-class state
         pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, false);
+        HorizontalDirection position = getSwitchPosition();
+        pseudoClassStateChanged(LEFT_PSEUDOCLASS_STATE, position == HorizontalDirection.LEFT);
+        pseudoClassStateChanged(RIGHT_PSEUDOCLASS_STATE, position == HorizontalDirection.RIGHT);
     }
 
     /* *************************************************************************
@@ -149,6 +172,72 @@ public class SwitchButton extends ButtonBase {
         return selected;
     }
 
+    /**
+     * The horizontal position of the switch relative to the label.
+     * When set to {@code HorizontalDirection.RIGHT}, the switch appears on the right
+     * and the label on the left. When set to {@code HorizontalDirection.LEFT},
+     * the switch appears on the left and the label on the right.
+     *
+     * <p>This value can also be set via CSS using {@code -fx-switch-position}.</p>
+     *
+     * @defaultValue HorizontalDirection.RIGHT
+     */
+    private ObjectProperty<HorizontalDirection> switchPosition;
+
+    /**
+     * Sets the horizontal position of the switch relative to the label.
+     *
+     * @param value the switch position
+     */
+    public final void setSwitchPosition(HorizontalDirection value) {
+        switchPositionProperty().set(value);
+    }
+
+    /**
+     * Returns the horizontal position of the switch relative to the label.
+     *
+     * @return the switch position
+     */
+    public final HorizontalDirection getSwitchPosition() {
+        return switchPosition == null ? HorizontalDirection.RIGHT : switchPosition.get();
+    }
+
+    /**
+     * The horizontal position of the switch relative to the label.
+     *
+     * @return the switchPosition property
+     * @defaultValue HorizontalDirection.RIGHT
+     */
+    public final ObjectProperty<HorizontalDirection> switchPositionProperty() {
+        if (switchPosition == null) {
+            switchPosition = new StyleableObjectProperty<HorizontalDirection>(HorizontalDirection.RIGHT) {
+
+                @Override
+                protected void invalidated() {
+                    final HorizontalDirection v = get();
+                    pseudoClassStateChanged(LEFT_PSEUDOCLASS_STATE, v == HorizontalDirection.LEFT);
+                    pseudoClassStateChanged(RIGHT_PSEUDOCLASS_STATE, v == HorizontalDirection.RIGHT || v == null);
+                }
+
+                @Override
+                public CssMetaData<SwitchButton, HorizontalDirection> getCssMetaData() {
+                    return StyleableProperties.SWITCH_POSITION;
+                }
+
+                @Override
+                public Object getBean() {
+                    return SwitchButton.this;
+                }
+
+                @Override
+                public String getName() {
+                    return "switchPosition";
+                }
+            };
+        }
+        return switchPosition;
+    }
+
     /* *************************************************************************
      *                                                                         *
      * Methods                                                                 *
@@ -183,6 +272,58 @@ public class SwitchButton extends ButtonBase {
 
     private static final String DEFAULT_STYLE_CLASS = "switch-button";
     private static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
+    private static final PseudoClass LEFT_PSEUDOCLASS_STATE = PseudoClass.getPseudoClass("left");
+    private static final PseudoClass RIGHT_PSEUDOCLASS_STATE = PseudoClass.getPseudoClass("right");
+
+    private static class StyleableProperties {
+
+        private static final CssMetaData<SwitchButton, HorizontalDirection> SWITCH_POSITION =
+                new CssMetaData<>("-fx-switch-position",
+                        new EnumConverter<>(HorizontalDirection.class),
+                        HorizontalDirection.RIGHT) {
+
+                    @Override
+                    public boolean isSettable(SwitchButton n) {
+                        return n.switchPosition == null || !n.switchPosition.isBound();
+                    }
+
+                    @Override
+                    public StyleableProperty<HorizontalDirection> getStyleableProperty(SwitchButton n) {
+                        return (StyleableProperty<HorizontalDirection>) (WritableValue<HorizontalDirection>)
+                                n.switchPositionProperty();
+                    }
+                };
+
+        private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
+
+        static {
+            final List<CssMetaData<? extends Styleable, ?>> styleables =
+                    new ArrayList<>(ButtonBase.getClassCssMetaData());
+            styleables.add(SWITCH_POSITION);
+            STYLEABLES = Collections.unmodifiableList(styleables);
+        }
+    }
+
+    /**
+     * Gets the {@code CssMetaData} associated with this class, which may include the
+     * {@code CssMetaData} of its superclasses.
+     *
+     * @return the {@code CssMetaData}
+     * @since JavaFX 8.0
+     */
+    public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
+        return StyleableProperties.STYLEABLES;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @since JavaFX 8.0
+     */
+    @Override
+    public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+        return getClassCssMetaData();
+    }
 
     /* *************************************************************************
      *                                                                         *

@@ -4283,8 +4283,15 @@ to the top and bottom -fx-padding values of the parent toolbar. */
  ******************************************************************************/
 
 .switch-button {
-    -fx-label-padding: 0.0em 0.416667em 0.0em 0.0em; /* 0 5 0 0 */
     -fx-text-fill: -fx-text-background-color;
+}
+
+.switch-button:right {
+    -fx-label-padding: 0.0em 0.416667em 0.0em 0.0em; /* 0 5 0 0 */
+}
+
+.switch-button:left {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
 }
 
 .switch-button:focused {
@@ -4293,21 +4300,21 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 
 .switch-button > .track {
     -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            -fx-inner-border,
-            -fx-body-color;
+            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
+            linear-gradient(to bottom, derive(-fx-color, -9%) 0%, derive(-fx-color, -33%) 100%),
+            linear-gradient(to bottom, derive(-fx-color, 65%) 2%, derive(-fx-color, -5%) 50%, derive(-fx-color, -10%) 98%),
+            linear-gradient(to bottom, derive(-fx-color, 20%) 0%, derive(-fx-color, -12%) 100%);
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 1em;
-    -fx-padding: 0.75em 1.5em; /* 9 18 */
+    -fx-padding: 0.666667em 1.25em; /* 8 15 */
 }
 
 .switch-button:focused > .track {
     -fx-background-color:
             -fx-focus-color,
-            -fx-outer-border,
-            -fx-inner-border,
-            -fx-body-color;
+            linear-gradient(to bottom, derive(-fx-color, -9%) 0%, derive(-fx-color, -33%) 100%),
+            linear-gradient(to bottom, derive(-fx-color, 65%) 2%, derive(-fx-color, -5%) 50%, derive(-fx-color, -10%) 98%),
+            linear-gradient(to bottom, derive(-fx-color, 20%) 0%, derive(-fx-color, -12%) 100%);
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -4322,10 +4329,10 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 
 .switch-button:selected > .track {
     -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            derive(-fx-accent, 30%),
-            derive(-fx-accent, 20%);
+            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, -9%) 0%, derive(-fx-accent, -33%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 65%) 2%, derive(-fx-accent, -5%) 50%, derive(-fx-accent, -10%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 20%) 0%, derive(-fx-accent, -12%) 100%);
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -4333,29 +4340,29 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 .switch-button:focused:selected > .track {
     -fx-background-color:
             -fx-focus-color,
-            -fx-outer-border,
-            derive(-fx-accent, 30%),
-            derive(-fx-accent, 20%);
+            linear-gradient(to bottom, derive(-fx-accent, -9%) 0%, derive(-fx-accent, -33%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 65%) 2%, derive(-fx-accent, -5%) 50%, derive(-fx-accent, -10%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 20%) 0%, derive(-fx-accent, -12%) 100%);
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-radius: 1em;
 }
 
 .switch-button:selected:hover > .track {
     -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            derive(-fx-accent, 40%),
-            derive(-fx-accent, 30%);
+            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 1%) 0%, derive(-fx-accent, -23%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 75%) 2%, derive(-fx-accent, 5%) 50%, derive(-fx-accent, 0%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 30%) 0%, derive(-fx-accent, -2%) 100%);
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
 
 .switch-button:selected:armed > .track {
     -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            derive(-fx-accent, 50%),
-            derive(-fx-accent, 40%);
+            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, -19%) 0%, derive(-fx-accent, -43%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 55%) 2%, derive(-fx-accent, -15%) 50%, derive(-fx-accent, -20%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 10%) 0%, derive(-fx-accent, -22%) 100%);
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -4363,9 +4370,9 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 .switch-button:focused:selected:hover > .track {
     -fx-background-color:
             -fx-focus-color,
-            -fx-outer-border,
-            derive(-fx-accent, 40%),
-            derive(-fx-accent, 30%);
+            linear-gradient(to bottom, derive(-fx-accent, 1%) 0%, derive(-fx-accent, -23%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 75%) 2%, derive(-fx-accent, 5%) 50%, derive(-fx-accent, 0%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 30%) 0%, derive(-fx-accent, -2%) 100%);
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -4373,20 +4380,20 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 .switch-button:focused:selected:armed > .track {
     -fx-background-color:
             -fx-focus-color,
-            -fx-outer-border,
-            derive(-fx-accent, 50%),
-            derive(-fx-accent, 40%);
+            linear-gradient(to bottom, derive(-fx-accent, -19%) 0%, derive(-fx-accent, -43%) 100%),
+            linear-gradient(to bottom, derive(-fx-accent, 55%) 2%, derive(-fx-accent, -15%) 50%, derive(-fx-accent, -20%) 98%),
+            linear-gradient(to bottom, derive(-fx-accent, 10%) 0%, derive(-fx-accent, -22%) 100%);
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-radius: 1em;
 }
 
 .switch-button > .thumb {
     -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            -fx-inner-border,
-            -fx-body-color;
-    -fx-background-insets: 2 2 1 2, 2, 3, 4;
+            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
+            linear-gradient(to bottom, derive(-fx-color, -9%) 0%, derive(-fx-color, -33%) 100%),
+            linear-gradient(to bottom, derive(-fx-color, 65%) 2%, derive(-fx-color, -5%) 50%, derive(-fx-color, -10%) 98%),
+            linear-gradient(to bottom, derive(-fx-color, 20%) 0%, derive(-fx-color, -12%) 100%);
+    -fx-background-insets: 0.166667em 0.166667em 0.125em 0.166667em, 0.166667em, 0.25em, 0.333333em;
     -fx-background-radius: 1em;
     -fx-padding: 0.666667em; /* 8 */
 }

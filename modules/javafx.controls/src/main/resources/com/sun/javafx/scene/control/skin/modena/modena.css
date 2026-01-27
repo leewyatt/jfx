@@ -3442,8 +3442,15 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 .switch-button {
-    -fx-label-padding: 0.0em 0.416667em 0.0em 0.0em; /* 0 5 0 0 */
     -fx-text-fill: -fx-text-background-color;
+}
+
+.switch-button:right {
+    -fx-label-padding: 0.0em 0.416667em 0.0em 0.0em; /* 0 5 0 0 */
+}
+
+.switch-button:left {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
 }
 
 .switch-button > .track {
@@ -3454,7 +3461,7 @@ is being used to size a border should also be in pixels.
             -fx-body-color;
     -fx-background-insets: 0, 0, 1, 2;
     -fx-background-radius: 1em;
-    -fx-padding: 0.75em 1.5em; /* 9 18 */
+    -fx-padding: 0.666667em 1.25em; /* 8 15 */
 }
 
 .switch-button:focused > .track {
@@ -3479,8 +3486,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-shadow-highlight-color,
             -fx-outer-border,
-            derive(-fx-accent, 30%),
-            derive(-fx-accent, 20%);
+            linear-gradient(to bottom, derive(-fx-accent, 35%), derive(-fx-accent, 20%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 5%),
+                derive(-fx-accent, 25%),
+                derive(-fx-accent, 20%),
+                derive(-fx-accent, 0%));
     -fx-background-insets: 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -3489,8 +3500,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-faint-focus-color,
             -fx-focus-color,
-            derive(-fx-accent, 30%),
-            derive(-fx-accent, 20%);
+            linear-gradient(to bottom, derive(-fx-accent, 35%), derive(-fx-accent, 20%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 5%),
+                derive(-fx-accent, 25%),
+                derive(-fx-accent, 20%),
+                derive(-fx-accent, 0%));
     -fx-background-insets: -1.4, -0.2, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -3499,8 +3514,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-shadow-highlight-color,
             -fx-outer-border,
-            derive(-fx-accent, 40%),
-            derive(-fx-accent, 30%);
+            linear-gradient(to bottom, derive(-fx-accent, 45%), derive(-fx-accent, 30%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 15%),
+                derive(-fx-accent, 35%),
+                derive(-fx-accent, 30%),
+                derive(-fx-accent, 10%));
     -fx-background-insets: 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -3509,8 +3528,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-shadow-highlight-color,
             -fx-outer-border,
-            derive(-fx-accent, 50%),
-            derive(-fx-accent, 40%);
+            linear-gradient(to bottom, derive(-fx-accent, 55%), derive(-fx-accent, 40%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 25%),
+                derive(-fx-accent, 45%),
+                derive(-fx-accent, 40%),
+                derive(-fx-accent, 20%));
     -fx-background-insets: 0, 0, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -3519,8 +3542,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-faint-focus-color,
             -fx-focus-color,
-            derive(-fx-accent, 40%),
-            derive(-fx-accent, 30%);
+            linear-gradient(to bottom, derive(-fx-accent, 45%), derive(-fx-accent, 30%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 15%),
+                derive(-fx-accent, 35%),
+                derive(-fx-accent, 30%),
+                derive(-fx-accent, 10%));
     -fx-background-insets: -1.4, -0.2, 1, 2;
     -fx-background-radius: 1em;
 }
@@ -3529,8 +3556,12 @@ is being used to size a border should also be in pixels.
     -fx-background-color:
             -fx-faint-focus-color,
             -fx-focus-color,
-            derive(-fx-accent, 50%),
-            derive(-fx-accent, 40%);
+            linear-gradient(to bottom, derive(-fx-accent, 55%), derive(-fx-accent, 40%)),
+            linear-gradient(to bottom,
+                derive(-fx-accent, 25%),
+                derive(-fx-accent, 45%),
+                derive(-fx-accent, 40%),
+                derive(-fx-accent, 20%));
     -fx-background-insets: -1.4, -0.2, 1, 2;
     -fx-background-radius: 1em;
 }

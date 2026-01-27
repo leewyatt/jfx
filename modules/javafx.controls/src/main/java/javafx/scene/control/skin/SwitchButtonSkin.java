@@ -35,6 +35,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HorizontalDirection;
 import javafx.scene.control.SwitchButton;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -118,6 +119,7 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
         thumbPosition.set(control.isSelected() ? 1.0 : 0.0);
 
         registerChangeListener(control.selectedProperty(), e -> selectedStateChanged());
+        registerChangeListener(control.switchPositionProperty(), e -> control.requestLayout());
 
         updateChildren();
     }
@@ -229,8 +231,18 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
         final double yOffset = Utils.computeYOffset(h, maxHeight,
                 switchButton.getAlignment().getVpos()) + y;
 
-        layoutLabelInArea(xOffset, yOffset, labelWidth, maxHeight, switchButton.getAlignment());
-        final double switchX = xOffset + labelWidth;
+        final boolean switchOnRight = switchButton.getSwitchPosition() != HorizontalDirection.LEFT;
+        final double labelX;
+        final double switchX;
+        if (switchOnRight) {
+            labelX = xOffset;
+            switchX = xOffset + labelWidth;
+        } else {
+            switchX = xOffset;
+            labelX = xOffset + switchWidth;
+        }
+
+        layoutLabelInArea(labelX, yOffset, labelWidth, maxHeight, switchButton.getAlignment());
 
         track.resize(trackWidth, trackHeight);
         final double trackX = switchX + (switchWidth - trackWidth) / 2;
