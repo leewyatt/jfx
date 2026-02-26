@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2025, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2026, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -714,7 +714,6 @@ BOOL ViewContainer::HandleViewMouseEvent(HWND hwnd, UINT msg, WPARAM wParam, LPA
         DWORD msgPos = ::GetMessagePos(); // screen coordinates
         pt.x = GET_X_LPARAM(msgPos);
         pt.y = GET_Y_LPARAM(msgPos);
-        RECT windowRect;
 
         // If the cursor is not over our window, we reset mouse tracking and emit an EXIT event.
         if (::ChildWindowFromPointEx(::GetDesktopWindow(), pt, CWP_SKIPINVISIBLE) != hwnd) {
@@ -1037,6 +1036,16 @@ void ViewContainer::HandleViewNonClientMouseEvent(HWND hwnd, UINT msg, WPARAM wP
         }
 
         ::ScreenToClient(hwnd, &pt);
+    } else if (msg == WM_NCMOUSEMOVE && wParam == HTTOP && m_bTrackingMouse) {
+        // We are here because the mouse cursor moved from the client area to the HTTOP non-client area.
+        // We emit an EXIT event to signal to JavaFX that the mouse cursor is no longer within the client area.
+        pt.x = GET_X_LPARAM(lParam);
+        pt.y = GET_Y_LPARAM(lParam);
+        ::MapWindowPoints(NULL, hwnd, &pt, 1);
+
+        type = com_sun_glass_events_MouseEvent_EXIT;
+        m_bTrackingMouse = FALSE;
+        m_lastMouseMovePosition = -1;
     } else if (msg >= WM_NCMOUSEMOVE
                    && msg <= WM_NCXBUTTONDBLCLK
                    && (wParam == HTCAPTION || wParam == HTMINBUTTON || wParam == HTMAXBUTTON || wParam == HTCLOSE)) {
