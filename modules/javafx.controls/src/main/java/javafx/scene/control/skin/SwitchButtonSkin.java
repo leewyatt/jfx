@@ -53,14 +53,8 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
      *                                                                         *
      **************************************************************************/
 
-    /**
-     * The track background of the switch.
-     */
     private final StackPane track;
 
-    /**
-     * The thumb that slides along the track.
-     */
     private final StackPane thumb;
 
     private final BehaviorBase<SwitchButton> behavior;
@@ -113,7 +107,8 @@ public class SwitchButtonSkin extends LabeledSkinBase<SwitchButton> {
 
         timeline = new Timeline();
 
-        thumbPositionListener = (obs, oldVal, newVal) -> thumb.setLayoutX(thumbStartX + thumbMoveRange * newVal.doubleValue());
+        thumbPositionListener = (obs, oldVal, newVal) ->
+                thumb.setLayoutX(thumbStartX + thumbMoveRange * newVal.doubleValue());
         thumbPosition.addListener(thumbPositionListener);
 
         thumbPosition.set(control.isSelected() ? 1.0 : 0.0);

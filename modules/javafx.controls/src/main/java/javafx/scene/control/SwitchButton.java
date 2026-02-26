@@ -105,7 +105,6 @@ public class SwitchButton extends ButtonBase {
         setMnemonicParsing(true);
 
         // initialize pseudo-class state
-        pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, false);
         HorizontalDirection position = getSwitchPosition();
         pseudoClassStateChanged(LEFT_PSEUDOCLASS_STATE, position == HorizontalDirection.LEFT);
         pseudoClassStateChanged(RIGHT_PSEUDOCLASS_STATE, position == HorizontalDirection.RIGHT);
@@ -309,7 +308,6 @@ public class SwitchButton extends ButtonBase {
      * {@code CssMetaData} of its superclasses.
      *
      * @return the {@code CssMetaData}
-     * @since JavaFX 8.0
      */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
         return StyleableProperties.STYLEABLES;
@@ -317,8 +315,6 @@ public class SwitchButton extends ButtonBase {
 
     /**
      * {@inheritDoc}
-     *
-     * @since JavaFX 8.0
      */
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
