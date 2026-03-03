@@ -432,6 +432,7 @@ is being used to size a border should also be in pixels.
 .toggle-button:hover,
 .radio-button:hover > .radio,
 .check-box:hover > .box,
+.switch-button:hover > .thumb,
 .menu-button:hover,
 .split-menu-button > .label:hover,
 .split-menu-button > .arrow-button:hover,
@@ -453,6 +454,7 @@ is being used to size a border should also be in pixels.
 .toggle-button:armed,
 .radio-button:armed > .radio,
 .check-box:armed .box,
+.switch-button:armed > .thumb,
 .menu-button:armed,
 .split-menu-button:armed > .label,
 .split-menu-button > .arrow-button:pressed,
@@ -490,6 +492,7 @@ is being used to size a border should also be in pixels.
 .toggle-button:disabled,
 .radio-button:disabled,
 .check-box:disabled,
+.switch-button:disabled,
 .hyperlink:disabled,
 .menu-button:disabled,
 .split-menu-button:disabled,
@@ -547,6 +550,7 @@ is being used to size a border should also be in pixels.
 .toggle-button:show-mnemonics > .mnemonic-underline,
 .radio-button:show-mnemonics > .mnemonic-underline,
 .check-box:show-mnemonics > .mnemonic-underline,
+.switch-button:show-mnemonics > .mnemonic-underline,
 .split-menu-button:show-mnemonics > .mnemonic-underline,
 .menu-button:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-base-color;
@@ -3456,113 +3460,91 @@ is being used to size a border should also be in pixels.
 .switch-button > .track {
     -fx-background-color:
             -fx-shadow-highlight-color,
-            -fx-outer-border,
-            -fx-inner-border,
-            -fx-body-color;
-    -fx-background-insets: 0, 0, 1, 2;
+            linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+            linear-gradient(to bottom,
+                derive(-fx-control-inner-background, -14%),
+                derive(-fx-control-inner-background, -6%),
+                derive(-fx-control-inner-background, 0%)
+            );
+    -fx-background-insets: 0 0 -1 0, 0, 1;
     -fx-background-radius: 1em;
     -fx-padding: 0.666667em 1.25em; /* 8 15 */
-}
-
-.switch-button:focused > .track {
-    -fx-background-color:
-            -fx-faint-focus-color,
-            -fx-focus-color,
-            -fx-inner-border,
-            -fx-body-color;
-    -fx-background-insets: -1.4, -0.2, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:hover > .track {
-    -fx-color: -fx-hover-base;
-}
-
-.switch-button:armed > .track {
-    -fx-color: -fx-pressed-base;
 }
 
 .switch-button:selected > .track {
     -fx-background-color:
             -fx-shadow-highlight-color,
-            -fx-outer-border,
-            linear-gradient(to bottom, derive(-fx-accent, 35%), derive(-fx-accent, 20%)),
+            linear-gradient(to bottom, derive(-fx-accent, -20%), derive(-fx-accent, -10%)),
             linear-gradient(to bottom,
-                derive(-fx-accent, 5%),
-                derive(-fx-accent, 25%),
-                derive(-fx-accent, 20%),
-                derive(-fx-accent, 0%));
-    -fx-background-insets: 0, 0, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:focused:selected > .track {
-    -fx-background-color:
-            -fx-faint-focus-color,
-            -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, 35%), derive(-fx-accent, 20%)),
-            linear-gradient(to bottom,
-                derive(-fx-accent, 5%),
-                derive(-fx-accent, 25%),
-                derive(-fx-accent, 20%),
-                derive(-fx-accent, 0%));
-    -fx-background-insets: -1.4, -0.2, 1, 2;
+                derive(-fx-accent, -16%),
+                derive(-fx-accent, -4%),
+                derive(-fx-accent, 8%)
+            );
+    -fx-background-insets: 0 0 -1 0, 0, 1;
     -fx-background-radius: 1em;
 }
 
 .switch-button:selected:hover > .track {
     -fx-background-color:
             -fx-shadow-highlight-color,
-            -fx-outer-border,
-            linear-gradient(to bottom, derive(-fx-accent, 45%), derive(-fx-accent, 30%)),
+            linear-gradient(to bottom, derive(-fx-accent, -10%), derive(-fx-accent, 0%)),
             linear-gradient(to bottom,
-                derive(-fx-accent, 15%),
-                derive(-fx-accent, 35%),
-                derive(-fx-accent, 30%),
-                derive(-fx-accent, 10%));
-    -fx-background-insets: 0, 0, 1, 2;
+                derive(-fx-accent, -6%),
+                derive(-fx-accent, 6%),
+                derive(-fx-accent, 18%)
+            );
+    -fx-background-insets: 0 0 -1 0, 0, 1;
     -fx-background-radius: 1em;
 }
 
 .switch-button:selected:armed > .track {
     -fx-background-color:
             -fx-shadow-highlight-color,
-            -fx-outer-border,
-            linear-gradient(to bottom, derive(-fx-accent, 55%), derive(-fx-accent, 40%)),
+            linear-gradient(to bottom, derive(-fx-accent, -30%), derive(-fx-accent, -20%)),
             linear-gradient(to bottom,
-                derive(-fx-accent, 25%),
-                derive(-fx-accent, 45%),
-                derive(-fx-accent, 40%),
-                derive(-fx-accent, 20%));
-    -fx-background-insets: 0, 0, 1, 2;
+                derive(-fx-accent, -26%),
+                derive(-fx-accent, -14%),
+                derive(-fx-accent, -2%)
+            );
+    -fx-background-insets: 0 0 -1 0, 0, 1;
     -fx-background-radius: 1em;
 }
 
-.switch-button:focused:selected:hover > .track {
+.switch-button:focused > .track {
     -fx-background-color:
-            -fx-faint-focus-color,
             -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, 45%), derive(-fx-accent, 30%)),
+            -fx-inner-border,
             linear-gradient(to bottom,
-                derive(-fx-accent, 15%),
-                derive(-fx-accent, 35%),
-                derive(-fx-accent, 30%),
-                derive(-fx-accent, 10%));
-    -fx-background-insets: -1.4, -0.2, 1, 2;
+                derive(-fx-control-inner-background, -14%),
+                derive(-fx-control-inner-background, -6%),
+                derive(-fx-control-inner-background, 0%)
+            ),
+            -fx-faint-focus-color,
+            linear-gradient(to bottom,
+                derive(-fx-control-inner-background, -14%),
+                derive(-fx-control-inner-background, -6%),
+                derive(-fx-control-inner-background, 0%)
+            );
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
     -fx-background-radius: 1em;
 }
 
-.switch-button:focused:selected:armed > .track {
+.switch-button:focused:selected > .track {
     -fx-background-color:
-            -fx-faint-focus-color,
             -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, 55%), derive(-fx-accent, 40%)),
+            -fx-inner-border,
             linear-gradient(to bottom,
-                derive(-fx-accent, 25%),
-                derive(-fx-accent, 45%),
-                derive(-fx-accent, 40%),
-                derive(-fx-accent, 20%));
-    -fx-background-insets: -1.4, -0.2, 1, 2;
+                derive(-fx-accent, -16%),
+                derive(-fx-accent, -4%),
+                derive(-fx-accent, 8%)
+            ),
+            -fx-faint-focus-color,
+            linear-gradient(to bottom,
+                derive(-fx-accent, -16%),
+                derive(-fx-accent, -4%),
+                derive(-fx-accent, 8%)
+            );
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
     -fx-background-radius: 1em;
 }
 
@@ -3575,18 +3557,6 @@ is being used to size a border should also be in pixels.
     -fx-background-radius: 1em;
     -fx-padding: 0.666667em; /* 8 */
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.1), 3, 0.0, 0, 1);
-}
-
-.switch-button:hover > .thumb {
-    -fx-color: -fx-hover-base;
-}
-
-.switch-button:armed > .thumb {
-    -fx-color: -fx-pressed-base;
-}
-
-.switch-button:disabled {
-    -fx-opacity: -fx-disabled-opacity;
 }
 
 /*******************************************************************************

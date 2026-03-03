@@ -4300,23 +4300,12 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 
 .switch-button > .track {
     -fx-background-color:
-            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
-            linear-gradient(to bottom, derive(-fx-color, -9%) 0%, derive(-fx-color, -33%) 100%),
-            linear-gradient(to bottom, derive(-fx-color, 65%) 2%, derive(-fx-color, -5%) 50%, derive(-fx-color, -10%) 98%),
-            linear-gradient(to bottom, derive(-fx-color, 20%) 0%, derive(-fx-color, -12%) 100%);
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+            -fx-shadow-highlight-color,
+            derive(-fx-color, -22%),
+            linear-gradient(to bottom, derive(-fx-color, -15%), derive(-fx-color, 2%) 20%, derive(-fx-color, 60%));
+    -fx-background-insets: 1 0 -1 0, 0, 1;
     -fx-background-radius: 1em;
     -fx-padding: 0.666667em 1.25em; /* 8 15 */
-}
-
-.switch-button:focused > .track {
-    -fx-background-color:
-            -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-color, -9%) 0%, derive(-fx-color, -33%) 100%),
-            linear-gradient(to bottom, derive(-fx-color, 65%) 2%, derive(-fx-color, -5%) 50%, derive(-fx-color, -10%) 98%),
-            linear-gradient(to bottom, derive(-fx-color, 20%) 0%, derive(-fx-color, -12%) 100%);
-    -fx-background-insets: -1.4, 0, 1, 2;
-    -fx-background-radius: 1em;
 }
 
 .switch-button:hover > .track {
@@ -4329,61 +4318,46 @@ to the top and bottom -fx-padding values of the parent toolbar. */
 
 .switch-button:selected > .track {
     -fx-background-color:
-            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, -9%) 0%, derive(-fx-accent, -33%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 65%) 2%, derive(-fx-accent, -5%) 50%, derive(-fx-accent, -10%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 20%) 0%, derive(-fx-accent, -12%) 100%);
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+            -fx-shadow-highlight-color,
+            derive(-fx-accent, -22%),
+            linear-gradient(to bottom, derive(-fx-accent, -15%), derive(-fx-accent, 2%) 20%, derive(-fx-accent, 60%));
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 1em;
+}
+
+.switch-button:selected:hover > .track {
+    -fx-background-color:
+            -fx-shadow-highlight-color,
+            derive(-fx-accent, -12%),
+            linear-gradient(to bottom, derive(-fx-accent, -5%), derive(-fx-accent, 12%) 20%, derive(-fx-accent, 70%));
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 1em;
+}
+
+.switch-button:selected:armed > .track {
+    -fx-background-color:
+            -fx-shadow-highlight-color,
+            derive(-fx-accent, -32%),
+            linear-gradient(to bottom, derive(-fx-accent, -25%), derive(-fx-accent, -8%) 20%, derive(-fx-accent, 50%));
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 1em;
+}
+
+.switch-button:focused > .track {
+    -fx-background-color:
+            -fx-focus-color,
+            -fx-outer-border,
+            linear-gradient(to bottom, derive(-fx-color, -15%), derive(-fx-color, 2%) 20%, derive(-fx-color, 60%));
+    -fx-background-insets: -1.4, 0, 1;
     -fx-background-radius: 1em;
 }
 
 .switch-button:focused:selected > .track {
     -fx-background-color:
             -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, -9%) 0%, derive(-fx-accent, -33%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 65%) 2%, derive(-fx-accent, -5%) 50%, derive(-fx-accent, -10%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 20%) 0%, derive(-fx-accent, -12%) 100%);
-    -fx-background-insets: -1.4, 0, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:selected:hover > .track {
-    -fx-background-color:
-            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 1%) 0%, derive(-fx-accent, -23%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 75%) 2%, derive(-fx-accent, 5%) 50%, derive(-fx-accent, 0%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 30%) 0%, derive(-fx-accent, -2%) 100%);
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:selected:armed > .track {
-    -fx-background-color:
-            linear-gradient(to bottom, derive(-fx-background, 40%) 0%, derive(-fx-background, 100%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, -19%) 0%, derive(-fx-accent, -43%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 55%) 2%, derive(-fx-accent, -15%) 50%, derive(-fx-accent, -20%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 10%) 0%, derive(-fx-accent, -22%) 100%);
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:focused:selected:hover > .track {
-    -fx-background-color:
-            -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, 1%) 0%, derive(-fx-accent, -23%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 75%) 2%, derive(-fx-accent, 5%) 50%, derive(-fx-accent, 0%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 30%) 0%, derive(-fx-accent, -2%) 100%);
-    -fx-background-insets: -1.4, 0, 1, 2;
-    -fx-background-radius: 1em;
-}
-
-.switch-button:focused:selected:armed > .track {
-    -fx-background-color:
-            -fx-focus-color,
-            linear-gradient(to bottom, derive(-fx-accent, -19%) 0%, derive(-fx-accent, -43%) 100%),
-            linear-gradient(to bottom, derive(-fx-accent, 55%) 2%, derive(-fx-accent, -15%) 50%, derive(-fx-accent, -20%) 98%),
-            linear-gradient(to bottom, derive(-fx-accent, 10%) 0%, derive(-fx-accent, -22%) 100%);
-    -fx-background-insets: -1.4, 0, 1, 2;
+            -fx-outer-border,
+            linear-gradient(to bottom, derive(-fx-accent, -15%), derive(-fx-accent, 2%) 20%, derive(-fx-accent, 60%));
+    -fx-background-insets: -1.4, 0, 1;
     -fx-background-radius: 1em;
 }
 
